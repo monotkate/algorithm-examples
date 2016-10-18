@@ -3,12 +3,18 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class BinarySearch {
+
+
+  /*
+  *   main: reads test data in and outputs the location of the given target
+  */
+
   public static void main(String[] args) {
     // Open file
     Scanner f = null;
 
     try {
-      f = new Scanner(new FileInputStream("../test0.txt"));
+      f = new Scanner(new FileInputStream("../test/test0.txt"));
     }
     catch (FileNotFoundException e) {
       System.out.println("File not found or not opened.");
@@ -22,7 +28,7 @@ public class BinarySearch {
     // Find Element
     int target = Integer.parseInt(args[0]);
     int loc = binSearch(array, target, 0, array.size());
-    if (loc > 0) {
+    if (loc >= 0) {
       System.out.printf("Target: %d, Location: %d\n", target, loc);
     }
     else {
