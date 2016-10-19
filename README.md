@@ -1,4 +1,4 @@
-# algorithm_examples
+# algorithm-examples
 Examples of various algorithms programmed in various languages for reference
 
 # Contribution
