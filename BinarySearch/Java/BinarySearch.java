@@ -71,7 +71,7 @@ public class BinarySearch {
   /*
   *   readArray: compiles array from test file
   *     inputs: f - Scanner for the input file
-  *     outputs: returns a list of integers from the input file
+  *     outputs: returns a sorted list of integers from the input file
   */
 
   private static List<Integer> readArray(Scanner f) {
