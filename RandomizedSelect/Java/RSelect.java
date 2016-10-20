@@ -23,22 +23,20 @@ public class RSelect {
 
     // Compile Array from file
     List<Integer> array = readArray(f);
-    printArray(array);
 
+    // Sorted Array for checking answers
     List<Integer> sorted = new ArrayList<Integer>(array);
     Collections.sort(sorted);
-    printArray(sorted);
 
-    // Find Element
+    // Find the ith smallest element according to the target number
     int target = Integer.parseInt(args[0]) - 1;
-    int ith = randomSel(array, target, 0, array.size());
-    // if (ith >= 0) {
-      System.out.printf("Target: %d, ith: %d\n", target, ith);
-      printArray(array);
-    // }
-    // else {
-    //   System.out.println("Target was not found");
-    // }
+    if (target < 0 || target >= array.size()) {
+        System.out.println("The target is not within range");
+    }
+    else {
+      int ith = randomSel(array, target, 0, array.size());
+      System.out.printf("Target: %d element, ith: %d\n", target + 1, ith);
+    }
 
   }
 
@@ -48,25 +46,28 @@ public class RSelect {
   *   randomSel: utilizes a pivot to find the ith smallest element in an
   *             unsorted array.
   *     inputs: array - contains integers to search unsorted
-  *             i - the ith element (that you want)
+  *             i - the ith smallest element of the array
   *             first - the first index of the portion you're looking at
   *             last - the last index of the portion you're looking at
-  *     outputs: returns the index of the ith smallest element
+  *     outputs: returns the value of the ith smallest element
   */
 
   private static int randomSel(List<Integer> array, int ith, int first, int last) {
-    printArray(array);
 
+    // Check the size, if one element, return that element
     int size = last - first;
     if (size <= 0) {
       return array.get(first);
     }
 
+    // Set pivot to the median value
     int p = (int)Math.floor(size/2) + first;
-    // int pivot = first;
 
+    // Swap pivot with the first
     swap(array, first, p);
     int pivot = array.get(first);
+
+    // Pivot array around pivot value
     int i = first + 1;
     for (int j = i; j < last; j++) {
       if (array.get(j) < pivot) {
@@ -74,24 +75,39 @@ public class RSelect {
         i++;
       }
     }
-    swap (array, first, i - 1);
 
-    if ((i - 1) == ith) {
+    // Swap the pivot into position and record new index
+    swap (array, first, p);
+    p = i - 1;
+
+    // Compare the new location to the element you're looking for, and recurse
+    if (p == ith) {
       return pivot;
     }
-    else if ((i - 1) > ith) {
-      return randomSel(array, ith, first, i - 2);
+    else if (p > ith) {
+      return randomSel(array, ith, first, p);
     }
     else {
-      return randomSel(array, ith, i, last);
+      return randomSel(array, ith, p + 1, last);
     }
   }
+
+
+
+  /*
+  *   swap: swaps two elements in an array
+  *     inputs: array - contains integers to search unsorted
+  *             x - contains the index of the first element
+  *             y - contains the index of the second element
+  *     outputs: the array elements have now swapped index value
+  */
 
   private static void swap(List<Integer> array, int x, int y) {
     int temp = array.get(x);
     array.set(x, array.get(y));
     array.set(y, temp);
   }
+
 
 
   /*
