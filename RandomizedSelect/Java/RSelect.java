@@ -14,7 +14,7 @@ public class RSelect {
     Scanner f = null;
 
     try {
-      f = new Scanner(new FileInputStream("../test/test0.txt"));
+      f = new Scanner(new FileInputStream("../test/test1.txt"));
     }
     catch (FileNotFoundException e) {
       System.out.println("File not found or not opened.");
@@ -60,10 +60,9 @@ public class RSelect {
       return array.get(first);
     }
 
-    // Set pivot to the median value
-    int p = (int)Math.floor(size/2) + first;
-
-    // Swap pivot with the first
+    // Set pivot to the median value and swap with first
+    Random rand = new Random();
+    int p = first + rand.nextInt(size);
     swap(array, first, p);
     int pivot = array.get(first);
 
@@ -77,8 +76,8 @@ public class RSelect {
     }
 
     // Swap the pivot into position and record new index
-    swap (array, first, p);
     p = i - 1;
+    swap (array, first, p);
 
     // Compare the new location to the element you're looking for, and recurse
     if (p == ith) {
