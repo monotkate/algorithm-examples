@@ -46,7 +46,7 @@ public class RSelect {
   *   randomSel: utilizes a pivot to find the ith smallest element in an
   *             unsorted array.
   *     inputs: array - contains integers to search unsorted
-  *             i - the ith smallest element of the array
+  *             ith - the ith smallest element of the array
   *             first - the first index of the portion you're looking at
   *             last - the last index of the portion you're looking at
   *     outputs: returns the value of the ith smallest element
@@ -60,7 +60,7 @@ public class RSelect {
       return array.get(first);
     }
 
-    // Set pivot to the median value and swap with first
+    // Set pivot to a random value and swap with first
     Random rand = new Random();
     int p = first + rand.nextInt(size);
     swap(array, first, p);
@@ -141,9 +141,8 @@ public class RSelect {
         System.out.printf("%d, ", arr.get(i));
       }
       else {
-        System.out.printf("%d", arr.get(i));
+        System.out.printf("%d]\n", arr.get(i));
       }
     }
-    System.out.printf("]\n");
   }
 }
