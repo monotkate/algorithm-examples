@@ -55,18 +55,16 @@ int binSearch(vector<int> array, int target, int first, int last) {
     return -1;
   }
 
-  int mid = floor(size/2) + first;
+  int mid = (first + last)/2;
   if (target == array.at(mid)) {
     return mid;
   }
   else if (target > array.at(mid)) {
     return binSearch(array, target, mid + 1, last);
   }
-  else if (target < array.at(mid)) {
-    return binSearch(array, target, first, mid - 1);
+  else {
+    return binSearch(array, target, first, mid);
   }
-
-  return -1;
 }
 
 
