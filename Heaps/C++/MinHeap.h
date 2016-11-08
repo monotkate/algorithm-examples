@@ -1,5 +1,6 @@
 #ifndef _MIN_HEAP
 #define _MIN_HEAP
+#include <vector>
 using namespace std;
 
 class MinHeap {
@@ -14,13 +15,13 @@ public:
   *   MinHeap: constructor
   *   Action: builds heap from existing array - not sorted.
   */
-  //MinHeap(const vector<int> &arr);
+  MinHeap(const vector<int> &arr);
 
   /*
   *   buildHeap:
   *   Action: Given a vector array of integers, sorts them into a proper heap
   */
-  //void buildHeap(vector<int> arr);
+  void buildHeap(const vector<int> &arr);
 
   /*
   *   minHeapify:
@@ -42,6 +43,24 @@ public:
   *     the rest of the heap as appropriate (bubble up)
   */
   int getMin();
+
+  /*
+  *   getSize:
+  *   Action: returns the number of elements in the heap
+  */
+  int getSize() const;
+
+  /*
+  *   operator=:
+  *   Action: compares two heaps
+  */
+  bool operator==(const MinHeap &heap) const;
+
+  /*
+  *   getElem():
+  *   Action: returns the value of the given element
+  */
+  int getElem(int v) const;
 
   void printHeap();
 

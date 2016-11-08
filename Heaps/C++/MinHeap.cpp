@@ -16,19 +16,19 @@ using namespace std;
   *   MinHeap: constructor
   *   Action: builds heap from existing array - not sorted.
   */
-  // MinHeap::MinHeap(const vector<int> &arr) {
-  //   buildHeap(arr);
-  // }
+  MinHeap::MinHeap(const vector<int> &arr) {
+    buildHeap(arr);
+  }
 
   /*
   *   buildHeap:
   *   Action: Given a vector array of integers, sorts them into a proper heap
   */
-  // void MinHeap::buildHeap(vector<int> arr) {
-  //   for (int i = 0; i < arr.size(); i++) {
-  //     //minHeapify(arr[i]);
-  //   }
-  // }
+  void MinHeap::buildHeap(const vector<int> &arr) {
+    for (int i = 0; i < arr.size(); i++) {
+      insert(arr[i]);
+    }
+  }
 
   /*
   *   insert:
@@ -49,7 +49,7 @@ using namespace std;
     if (heap.size() > 0) {
       return heap[0];
     }
-    return -1;
+    return numeric_limits<int>::min();
   }
 
   /*
@@ -61,21 +61,53 @@ using namespace std;
     int root;
     if (heap.size() > 0) {
       root = heap[0];
-      swap(0, heap.size() - 1);
-      bubbleDown(0);
+
+      // switch last with root, delete last
+      heap[0] = heap[heap.size() - 1];
+      heap.pop_back();
+
+      bubbleDown(0); // sort down
     }
     else {
-      root = -1;
+      root = numeric_limits<int>::min();
     }
 
     return root;
   }
 
-  void MinHeap::printHeap() {
-    for (int i = 0; i < heap.size(); i++) {
-      cout << heap[i] << " ";
+  /*
+  *   getSize:
+  *   Action: returns the number of elements in the heap
+  */
+  int MinHeap::getSize() const {
+    return heap.size();
+  }
+
+  /*
+  *   operator=:
+  *   Action: compares two heaps
+  */
+  bool MinHeap::operator==(const MinHeap &newHeap) const {
+    bool equal = true;
+    if (newHeap.getSize() != getSize()) {
+      equal = false;
     }
-    cout << endl;
+    else {
+      for (int i; i < getSize(); i++) {
+        if (newHeap.getElem(i) != heap[i]) {
+          return false;
+        }
+      }
+    }
+    return equal;
+  }
+
+  /*
+  *   getElem():
+  *   Action: returns the value of the given element
+  */
+  int MinHeap::getElem(int v) const {
+    return heap[v];
   }
 
   /*
@@ -125,9 +157,10 @@ using namespace std;
     if (k < heap[v]) {
       heap[v] = k;
       int par = getParent(v - 1);
-      while (v > 0 && heap[par] > heap[v]) {
+      while (heap[par] > heap[v]) {
         swap(v, par);
         v = par;
+        par = getParent(v - 1);
       }
     }
   }
